@@ -1,0 +1,51 @@
+﻿@{
+    ViewBag.Title = "Menu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section featured {
+    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup class="title"></hgroup>
+            <img src="~/Images/logo.png" />
+
+        </div>
+    </section>
+}
+ 
+<div class="round" style="width:500px; margin:0 auto; overflow:hidden ">
+    <form action="~/BKInfo" class="float-left">
+        <button type="submit" class="btn btn-primary">书目列表</button>
+    </form>
+  
+    <form action="~/ReaderInfo" class="float-left"><button type="submit" class="btn btn-primary">读者管理</button></form>
+ 
+    <form action="~/Book" class="float-left"><button type="submit" class="btn btn-primary">图书管理</button></form>
+ 
+    <form action="~/BKInfo/Create" class="float-left">
+        <button type="submit" class="btn btn-primary">新书录入</button>
+    </form>
+ 
+    <form action="~/Book/Create"  >
+        <button type="submit" class="btn btn-primary">图书上架</button>
+    </form>
+    <br/>
+   
+    <form action="~/Record/Create" class="float-left">
+        <button type="submit" class="btn btn-primary">借书</button>
+    </form>
+
+
+    <form action="~/Record"  class="float-left">
+        <button type="submit" class="btn btn-primary ">还书</button>
+    </form>
+
+
+    <form action="~/AlreadyLend">
+        <button type="submit" class="btn btn-primary">已借出图书查询</button>
+    </form>
+
+       
+
+</div>
+ 

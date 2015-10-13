@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="bfbdacee6b3b413590c91e72d80b4a0a" Name="Diagram1">
+        <EntityTypeShape EntityType="PMLibModel.BK" Width="1.5" PointX="0.75" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PMLibModel.Book" Width="1.5" PointX="3" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PMLibModel.Librarian" Width="1.5" PointX="5.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PMLibModel.Reader" Width="1.5" PointX="0.75" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PMLibModel.Record" Width="1.5" PointX="3" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PMLibModel.Reserve" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PMLibModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PMLibModel.InShelfBook" Width="1.5" PointX="5.75" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PMLibModel.LendBook" Width="1.5" PointX="7.75" PointY="2.125" IsExpanded="true" />
+        <AssociationConnector Association="PMLibModel.FK_BK_BK" ManuallyRouted="false" />
+        <AssociationConnector Association="PMLibModel.FK_Book_BK" ManuallyRouted="false" />
+        <AssociationConnector Association="PMLibModel.FK_Reserve_BK" ManuallyRouted="false" />
+        <AssociationConnector Association="PMLibModel.FK_Record_Reader" ManuallyRouted="false" />
+        <AssociationConnector Association="PMLibModel.FK_Reserve_Reader" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

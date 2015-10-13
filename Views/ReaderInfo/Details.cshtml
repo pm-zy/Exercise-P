@@ -1,0 +1,37 @@
+﻿@model PMLib.Models.Reader
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>详情</h2>
+
+<fieldset>
+    <legend>读者</legend>
+
+    <div class="display-label">
+        编号
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.readerID)
+    </div>
+
+
+    <div class="display-label">
+        姓名
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.readerName)
+    </div>
+
+    <div class="display-label">
+        电话
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.readerTel)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("编辑", "Edit", new { id=Model.readerID }) |
+    @Html.ActionLink("返回列表", "Index")
+</p>

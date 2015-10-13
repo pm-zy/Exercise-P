@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PMLibModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="BK">
+    <Key>
+      <PropertyRef Name="bkISBN" />
+    </Key>
+    <Property Name="bkISBN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="bkName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="bkAuthor" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="bkPublisher" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="bkPubTime" Type="DateTime" Precision="0" />
+    <Property Name="bkCount" Type="Int32" Nullable="false" />
+    <Property Name="bkSort" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="BK1" Relationship="Self.FK_BK_BK" FromRole="BK" ToRole="BK1" />
+    <NavigationProperty Name="BK2" Relationship="Self.FK_BK_BK" FromRole="BK1" ToRole="BK" />
+    <NavigationProperty Name="Book" Relationship="Self.FK_Book_BK" FromRole="BK" ToRole="Book" />
+    <NavigationProperty Name="Reserve" Relationship="Self.FK_Reserve_BK" FromRole="BK" ToRole="Reserve" />
+  </EntityType>
+  <EntityType Name="Book">
+    <Key>
+      <PropertyRef Name="bookID" />
+    </Key>
+    <Property Name="bookID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="bkISBN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="bookSite" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="bookState" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="BK" Relationship="Self.FK_Book_BK" FromRole="Book" ToRole="BK" />
+  </EntityType>
+  <EntityType Name="Librarian">
+    <Key>
+      <PropertyRef Name="libName" />
+    </Key>
+    <Property Name="libName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="libPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Reader">
+    <Key>
+      <PropertyRef Name="readerID" />
+    </Key>
+    <Property Name="readerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="readerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="readerTel" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Record" Relationship="Self.FK_Record_Reader" FromRole="Reader" ToRole="Record" />
+    <NavigationProperty Name="Reserve" Relationship="Self.FK_Reserve_Reader" FromRole="Reader" ToRole="Reserve" />
+  </EntityType>
+  <EntityType Name="Record">
+    <Key>
+      <PropertyRef Name="readerID" />
+      <PropertyRef Name="bookID" />
+      <PropertyRef Name="lendTime" />
+    </Key>
+    <Property Name="readerID" Type="Int32" Nullable="false" />
+    <Property Name="bookID" Type="Int32" Nullable="false" />
+    <Property Name="lendTime" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="wellTime" Type="DateTime" Precision="0" />
+    <Property Name="returnTime" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Reader" Relationship="Self.FK_Record_Reader" FromRole="Record" ToRole="Reader" />
+  </EntityType>
+  <EntityType Name="Reserve">
+    <Key>
+      <PropertyRef Name="readerID" />
+      <PropertyRef Name="bkISBN" />
+      <PropertyRef Name="reserveTime" />
+    </Key>
+    <Property Name="readerID" Type="Int32" Nullable="false" />
+    <Property Name="bkISBN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="reserveTime" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="reserveLine" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="BK" Relationship="Self.FK_Reserve_BK" FromRole="Reserve" ToRole="BK" />
+    <NavigationProperty Name="Reader" Relationship="Self.FK_Reserve_Reader" FromRole="Reserve" ToRole="Reader" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="InShelfBook">
+    <Key>
+      <PropertyRef Name="bookID" />
+      <PropertyRef Name="bkISBN" />
+      <PropertyRef Name="bkName" />
+    </Key>
+    <Property Name="bookID" Type="Int32" Nullable="false" />
+    <Property Name="bkISBN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="bkName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LendBook">
+    <Key>
+      <PropertyRef Name="bkName" />
+      <PropertyRef Name="bkPublisher" />
+      <PropertyRef Name="bkSort" />
+      <PropertyRef Name="bkISBN" />
+      <PropertyRef Name="bookID" />
+      <PropertyRef Name="bookState" />
+    </Key>
+    <Property Name="bkName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="bkAuthor" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="bkPublisher" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="bkSort" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="bkISBN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="bookID" Type="Int32" Nullable="false" />
+    <Property Name="bookState" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_BK_BK">
+    <End Role="BK" Type="Self.BK" Multiplicity="1" />
+    <End Role="BK1" Type="Self.BK" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="BK">
+        <PropertyRef Name="bkISBN" />
+      </Principal>
+      <Dependent Role="BK1">
+        <PropertyRef Name="bkISBN" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Book_BK">
+    <End Role="BK" Type="Self.BK" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Book" Type="Self.Book" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BK">
+        <PropertyRef Name="bkISBN" />
+      </Principal>
+      <Dependent Role="Book">
+        <PropertyRef Name="bkISBN" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Reserve_BK">
+    <End Role="BK" Type="Self.BK" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Reserve" Type="Self.Reserve" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BK">
+        <PropertyRef Name="bkISBN" />
+      </Principal>
+      <Dependent Role="Reserve">
+        <PropertyRef Name="bkISBN" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Record_Reader">
+    <End Role="Reader" Type="Self.Reader" Multiplicity="1" />
+    <End Role="Record" Type="Self.Record" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Reader">
+        <PropertyRef Name="readerID" />
+      </Principal>
+      <Dependent Role="Record">
+        <PropertyRef Name="readerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Reserve_Reader">
+    <End Role="Reader" Type="Self.Reader" Multiplicity="1" />
+    <End Role="Reserve" Type="Self.Reserve" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Reader">
+        <PropertyRef Name="readerID" />
+      </Principal>
+      <Dependent Role="Reserve">
+        <PropertyRef Name="readerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="PMLibEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="BK" EntityType="Self.BK" />
+    <EntitySet Name="Book" EntityType="Self.Book" />
+    <EntitySet Name="Librarian" EntityType="Self.Librarian" />
+    <EntitySet Name="Reader" EntityType="Self.Reader" />
+    <EntitySet Name="Record" EntityType="Self.Record" />
+    <EntitySet Name="Reserve" EntityType="Self.Reserve" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="InShelfBook" EntityType="Self.InShelfBook" />
+    <EntitySet Name="LendBook" EntityType="Self.LendBook" />
+    <AssociationSet Name="FK_BK_BK" Association="Self.FK_BK_BK">
+      <End Role="BK" EntitySet="BK" />
+      <End Role="BK1" EntitySet="BK" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Book_BK" Association="Self.FK_Book_BK">
+      <End Role="BK" EntitySet="BK" />
+      <End Role="Book" EntitySet="Book" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Reserve_BK" Association="Self.FK_Reserve_BK">
+      <End Role="BK" EntitySet="BK" />
+      <End Role="Reserve" EntitySet="Reserve" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Record_Reader" Association="Self.FK_Record_Reader">
+      <End Role="Reader" EntitySet="Reader" />
+      <End Role="Record" EntitySet="Record" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Reserve_Reader" Association="Self.FK_Reserve_Reader">
+      <End Role="Reader" EntitySet="Reader" />
+      <End Role="Reserve" EntitySet="Reserve" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,46 @@
+﻿@{
+    ViewBag.Title = "About";
+}
+
+<hgroup class="title">
+    <h1>关于</h1>
+     
+</hgroup>
+
+<article>
+    <h2>
+       PM图书馆
+    </h2>
+
+    <p>
+        04131071
+    </p>
+
+    <p>
+        今年相对完善的一个网站，应该会对接下来写的实验室官网后台比较有帮助。
+    </p>
+    <p>
+        有用户身份验证，用Session做的。
+    </p>
+    <p>
+        有两种用户角色，读者和管理员，区别在于是否登陆了管理员账号。
+    </p>
+    <p>
+        读者可以搜索和查询图书的可借数量、图书位置，可以预约图书。
+    </p>
+    <p>
+        管理员可以对各种信息进行管理。
+    </p>
+</article>
+
+<aside>
+    <h2>作者</h2>
+    <p>
+        计科1302-潘铭
+    </p>
+    <ul>
+        <li>@Html.ActionLink("主页", "Index", "Home")</li>
+        <li>@Html.ActionLink("关于", "About", "Home")</li>
+        <li>@Html.ActionLink("联系我", "Contact", "Home")</li>
+    </ul>
+</aside>

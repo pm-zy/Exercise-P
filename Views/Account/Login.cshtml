@@ -1,0 +1,41 @@
+﻿@model PMLib.Models.Librarian
+
+@{
+    ViewBag.Title = "登录";
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+</hgroup>
+
+<section id="loginForm">
+<h2>使用本地帐户登录。</h2>
+@using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl })) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>“登录”表单</legend>
+        <ol>
+            <li>
+                @Html.LabelFor(m => m.libName)
+                @Html.TextBoxFor(m => m.libName)
+                @Html.ValidationMessageFor(m => m.libName)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.libPassword)
+                @Html.PasswordFor(m => m.libPassword)
+                @Html.ValidationMessageFor(m => m.libPassword)
+            </li>
+            
+        </ol>
+        <input type="submit" value="登录" />
+    </fieldset>
+    
+}
+</section>
+
+ 
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

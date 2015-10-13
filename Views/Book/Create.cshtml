@@ -1,0 +1,55 @@
+﻿@model PMLib.Models.Book
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>新书上架</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @*<form action="~/AdminNav" method="post"><button type="submit" class="btn btn-primary float-right">返回导航页面</button></form>*@
+    <fieldset>
+        <legend>Book</legend>
+        @*<form action="~/Book/Create" method="post">*@
+
+
+            <div class="editor-label">
+                书名
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("bkISBN", String.Empty)
+                @Html.ValidationMessageFor(model => model.bkISBN)
+            </div>
+
+            <div class="editor-label">
+                位置
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.bookSite)
+                @Html.ValidationMessageFor(model => model.bookSite)
+            </div>
+
+            <div class="editor-label">
+                状态
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.bookState)
+                @Html.ValidationMessageFor(model => model.bookState)
+            </div>
+
+            <p>
+                <button type="submit">录入</button>
+            </p>
+        @*</form>*@
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("返回列表", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

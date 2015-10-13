@@ -1,0 +1,68 @@
+﻿@model PMLib.Models.Record
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Record</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.readerID, "Reader")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("readerID", String.Empty)
+            @Html.ValidationMessageFor(model => model.readerID)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.bookID)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.bookID)
+            @Html.ValidationMessageFor(model => model.bookID)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.lendTime)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.lendTime)
+            @Html.ValidationMessageFor(model => model.lendTime)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.wellTime)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.wellTime)
+            @Html.ValidationMessageFor(model => model.wellTime)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.returnTime)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.returnTime)
+            @Html.ValidationMessageFor(model => model.returnTime)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

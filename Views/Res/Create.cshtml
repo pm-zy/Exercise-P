@@ -1,0 +1,60 @@
+﻿@model PMLib.Models.Reserve
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>图书预约</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>预约</legend>
+
+        <div class="editor-label">
+            借书人：
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("readerID", String.Empty)
+            @Html.ValidationMessageFor(model => model.readerID)
+        </div>
+
+        <div class="editor-label">
+            书名：
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("bkISBN", String.Empty)
+            @Html.ValidationMessageFor(model => model.bkISBN)
+        </div>
+
+        <div class="editor-label">
+            预约时间：
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.reserveTime)
+            @Html.ValidationMessageFor(model => model.reserveTime)
+        </div>
+
+        <div class="editor-label">
+            到期时间：
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.reserveLine)
+            @Html.ValidationMessageFor(model => model.reserveLine)
+        </div>
+
+        <p>
+            <input type="submit" value="预约" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("返回列表", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,51 @@
+﻿@model PMLib.Models.Reader
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>编辑</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>读者信息</legend>
+
+        @Html.DisplayFor(model => model.readerID)
+
+        <div class="editor-label">
+           编号
+        </div>
+        @Html.LabelFor(model => model.readerID)
+        @Html.HiddenFor(model => model.readerID)
+        <div class="editor-label">
+            姓名
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.readerName)
+            @Html.ValidationMessageFor(model => model.readerName)
+        </div>
+
+        <div class="editor-label">
+            电话
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.readerTel)
+            @Html.ValidationMessageFor(model => model.readerTel)
+        </div>
+
+        <p>
+            <input type="submit" value="保存" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("返回列表", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

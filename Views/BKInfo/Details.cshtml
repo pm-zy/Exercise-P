@@ -1,0 +1,76 @@
+﻿@model  PMLib.BLL.BookInfo 
+ 
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>详细信息</h2>
+
+<fieldset>
+    <legend>书目</legend>
+    <br/>
+    <div class="display-label">
+        ISBN:
+    </div>
+    <div class="display-field">
+        --- |  @Html.DisplayFor(model => model.bkISBN )
+    </div>
+
+    <div class="display-label">
+         书名:
+    </div>
+    <div class="display-field">
+        --- | @Html.DisplayFor(model => model.bkName)
+    </div>
+
+    <div class="display-label">
+        作者:
+    </div>
+    <div class="display-field">
+        --- | @Html.DisplayFor(model => model.bkAuthor)
+    </div>
+
+    <div class="display-label">
+        出版社:
+    </div>
+    <div class="display-field">
+        --- | @Html.DisplayFor(model => model.bkPublisher)
+    </div>
+
+    <div class="display-label">
+         出版时间:
+    </div>
+    <div class="display-field">
+        --- | @Html.DisplayFor(model => model.bkPubTime)
+    </div>
+
+    <div class="display-label">
+         总数:
+    </div>
+    <div class="display-field">
+        --- | @Html.DisplayFor(model => model.bkCount)
+    </div>
+
+    <div class="display-label">
+        分类:
+    </div>
+    <div class="display-field">
+        --- | @Html.DisplayFor(model => model.bkSort)
+    </div>
+    <div class="display-label">
+        位置:
+    </div>
+    <div class="display-field">
+        --- | @Html.DisplayFor(model => model.bookSite)
+    </div>
+    <div class="display-label">
+        可借数量:
+    </div>
+    <div class="display-field">
+        --- | @Html.DisplayFor(model => model.inShelf)
+    </div>
+</fieldset>
+<p>
+    @*@Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |*@
+    @Html.ActionLink("返回列表", "Index")
+</p>

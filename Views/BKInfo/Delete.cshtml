@@ -1,0 +1,70 @@
+﻿@model PMLib.Models.BK
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>书目</legend>
+    <br />
+    <div class="display-label">
+        ISBN:
+    </div>
+    <div class="display-field">
+        --- |  @Html.DisplayFor(model => model.bkISBN)
+    </div>
+
+    <div class="display-label">
+        书名:
+    </div>
+    <div class="display-field">
+        --- | @Html.DisplayFor(model => model.bkName)
+    </div>
+
+    <div class="display-label">
+        作者:
+    </div>
+    <div class="display-field">
+        --- | @Html.DisplayFor(model => model.bkAuthor)
+    </div>
+
+    <div class="display-label">
+        出版社:
+    </div>
+    <div class="display-field">
+        --- | @Html.DisplayFor(model => model.bkPublisher)
+    </div>
+
+    <div class="display-label">
+        出版时间:
+    </div>
+    <div class="display-field">
+        --- | @Html.DisplayFor(model => model.bkPubTime)
+    </div>
+
+    <div class="display-label">
+        总数:
+    </div>
+    <div class="display-field">
+        --- | @Html.DisplayFor(model => model.bkCount)
+    </div>
+
+    <div class="display-label">
+        分类:
+    </div>
+    <div class="display-field">
+        --- | @Html.DisplayFor(model => model.bkSort)
+    </div>
+     
+</fieldset>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <p>
+        <button type="submit">删除</button>   |
+        @Html.ActionLink("返回列表", "Index")
+    </p>
+}

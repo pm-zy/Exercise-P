@@ -1,0 +1,44 @@
+﻿@model IEnumerable<PMLib.Models.Reserve>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>预约</h2>
+
+<p>
+    @Html.ActionLink("我要预约", "Create")
+</p>
+<table class="table table-bordered table-striped table-hover">
+    <tr>
+
+        <th>
+            书名
+        </th>
+        <th>
+            预约时间
+        </th>
+        <th>
+            预约期限
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.BK.bkName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.reserveTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.reserveLine)
+            </td>
+
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,60 @@
+﻿@model IEnumerable<PMLib.Models.Record>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>借还记录</h2>
+
+<p>
+    @Html.ActionLink("借书", "Create")
+</p>
+<form action="~/AdminNav" method="post"><button type="submit" class="btn btn-primary float-right">返回导航页面</button></form>
+<table class="table table-bordered table-striped table-hover">
+    <tr>
+        <th>
+            读者姓名
+        </th>
+        <th>
+            图书ID
+        </th>
+        <th>
+            借书时间
+        </th>
+        <th>
+            应还时间
+        </th>
+        <th>
+            还书时间
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Reader.readerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.bookID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.lendTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.wellTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.returnTime)
+            </td>
+            <td>
+
+                @Html.ActionLink("详情", "Details", new PMLib.Controllers.PreKey { readerID = item.readerID, bookID = item.bookID, lendTime = item.lendTime }) |
+                @Html.ActionLink("还书", "Delete", new PMLib.Controllers.PreKey { readerID = item.readerID, bookID = item.bookID, lendTime = item.lendTime }) |
+                @Html.ActionLink("续借", "Continue", new PMLib.Controllers.PreKey { readerID = item.readerID, bookID = item.bookID, lendTime = item.lendTime })
+            </td>
+        </tr>
+    }
+
+</table>

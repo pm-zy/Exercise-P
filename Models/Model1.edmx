@@ -1,0 +1,548 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="PMLibModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BK">
+          <Key>
+            <PropertyRef Name="bkISBN" />
+          </Key>
+          <Property Name="bkISBN" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="bkName" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="bkAuthor" Type="nvarchar" MaxLength="200" />
+          <Property Name="bkPublisher" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="bkPubTime" Type="date" />
+          <Property Name="bkCount" Type="int" Nullable="false" />
+          <Property Name="bkSort" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Book">
+          <Key>
+            <PropertyRef Name="bookID" />
+          </Key>
+          <Property Name="bookID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="bkISBN" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="bookSite" Type="nvarchar" MaxLength="100" />
+          <Property Name="bookState" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Librarian">
+          <Key>
+            <PropertyRef Name="libName" />
+          </Key>
+          <Property Name="libName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="libPassword" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Reader">
+          <Key>
+            <PropertyRef Name="readerID" />
+          </Key>
+          <Property Name="readerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="readerName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="readerTel" Type="nvarchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="Record">
+          <Key>
+            <PropertyRef Name="readerID" />
+            <PropertyRef Name="bookID" />
+            <PropertyRef Name="lendTime" />
+          </Key>
+          <Property Name="readerID" Type="int" Nullable="false" />
+          <Property Name="bookID" Type="int" Nullable="false" />
+          <Property Name="lendTime" Type="date" Nullable="false" />
+          <Property Name="wellTime" Type="date" />
+          <Property Name="returnTime" Type="date" />
+        </EntityType>
+        <EntityType Name="Reserve">
+          <Key>
+            <PropertyRef Name="readerID" />
+            <PropertyRef Name="bkISBN" />
+            <PropertyRef Name="reserveTime" />
+          </Key>
+          <Property Name="readerID" Type="int" Nullable="false" />
+          <Property Name="bkISBN" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="reserveTime" Type="date" Nullable="false" />
+          <Property Name="reserveLine" Type="date" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“PMLib.dbo.InShelfBook”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="InShelfBook">
+          <Key>
+            <PropertyRef Name="bookID" />
+            <PropertyRef Name="bkISBN" />
+            <PropertyRef Name="bkName" />
+          </Key>
+          <Property Name="bookID" Type="int" Nullable="false" />
+          <Property Name="bkISBN" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="bkName" Type="nvarchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“PMLib.dbo.LendBook”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="LendBook">
+          <Key>
+            <PropertyRef Name="bkName" />
+            <PropertyRef Name="bkPublisher" />
+            <PropertyRef Name="bkSort" />
+            <PropertyRef Name="bkISBN" />
+            <PropertyRef Name="bookID" />
+            <PropertyRef Name="bookState" />
+          </Key>
+          <Property Name="bkName" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="bkAuthor" Type="nvarchar" MaxLength="200" />
+          <Property Name="bkPublisher" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="bkSort" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="bkISBN" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="bookID" Type="int" Nullable="false" />
+          <Property Name="bookState" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_BK_BK">
+          <End Role="BK" Type="Self.BK" Multiplicity="1" />
+          <End Role="BK1" Type="Self.BK" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="BK">
+              <PropertyRef Name="bkISBN" />
+            </Principal>
+            <Dependent Role="BK1">
+              <PropertyRef Name="bkISBN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Book_BK">
+          <End Role="BK" Type="Self.BK" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Book" Type="Self.Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BK">
+              <PropertyRef Name="bkISBN" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="bkISBN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Record_Reader">
+          <End Role="Reader" Type="Self.Reader" Multiplicity="1" />
+          <End Role="Record" Type="Self.Record" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reader">
+              <PropertyRef Name="readerID" />
+            </Principal>
+            <Dependent Role="Record">
+              <PropertyRef Name="readerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reserve_BK">
+          <End Role="BK" Type="Self.BK" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Reserve" Type="Self.Reserve" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BK">
+              <PropertyRef Name="bkISBN" />
+            </Principal>
+            <Dependent Role="Reserve">
+              <PropertyRef Name="bkISBN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reserve_Reader">
+          <End Role="Reader" Type="Self.Reader" Multiplicity="1" />
+          <End Role="Reserve" Type="Self.Reserve" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reader">
+              <PropertyRef Name="readerID" />
+            </Principal>
+            <Dependent Role="Reserve">
+              <PropertyRef Name="readerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PMLibModelStoreContainer">
+          <EntitySet Name="BK" EntityType="Self.BK" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Book" EntityType="Self.Book" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Librarian" EntityType="Self.Librarian" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reader" EntityType="Self.Reader" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Record" EntityType="Self.Record" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reserve" EntityType="Self.Reserve" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InShelfBook" EntityType="Self.InShelfBook" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[InShelfBook].[bookID] AS [bookID], 
+[InShelfBook].[bkISBN] AS [bkISBN], 
+[InShelfBook].[bkName] AS [bkName]
+FROM [dbo].[InShelfBook] AS [InShelfBook]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="LendBook" EntityType="Self.LendBook" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[LendBook].[bkName] AS [bkName], 
+[LendBook].[bkAuthor] AS [bkAuthor], 
+[LendBook].[bkPublisher] AS [bkPublisher], 
+[LendBook].[bkSort] AS [bkSort], 
+[LendBook].[bkISBN] AS [bkISBN], 
+[LendBook].[bookID] AS [bookID], 
+[LendBook].[bookState] AS [bookState]
+FROM [dbo].[LendBook] AS [LendBook]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_BK_BK" Association="Self.FK_BK_BK">
+            <End Role="BK" EntitySet="BK" />
+            <End Role="BK1" EntitySet="BK" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Book_BK" Association="Self.FK_Book_BK">
+            <End Role="BK" EntitySet="BK" />
+            <End Role="Book" EntitySet="Book" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Record_Reader" Association="Self.FK_Record_Reader">
+            <End Role="Reader" EntitySet="Reader" />
+            <End Role="Record" EntitySet="Record" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reserve_BK" Association="Self.FK_Reserve_BK">
+            <End Role="BK" EntitySet="BK" />
+            <End Role="Reserve" EntitySet="Reserve" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reserve_Reader" Association="Self.FK_Reserve_Reader">
+            <End Role="Reader" EntitySet="Reader" />
+            <End Role="Reserve" EntitySet="Reserve" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PMLibModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="BK">
+          <Key>
+            <PropertyRef Name="bkISBN" />
+          </Key>
+          <Property Name="bkISBN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="bkName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="bkAuthor" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="bkPublisher" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="bkPubTime" Type="DateTime" Precision="0" />
+          <Property Name="bkCount" Type="Int32" Nullable="false" />
+          <Property Name="bkSort" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="BK1" Relationship="Self.FK_BK_BK" FromRole="BK" ToRole="BK1" />
+          <NavigationProperty Name="BK2" Relationship="Self.FK_BK_BK" FromRole="BK1" ToRole="BK" />
+          <NavigationProperty Name="Book" Relationship="Self.FK_Book_BK" FromRole="BK" ToRole="Book" />
+          <NavigationProperty Name="Reserve" Relationship="Self.FK_Reserve_BK" FromRole="BK" ToRole="Reserve" />
+        </EntityType>
+        <EntityType Name="Book">
+          <Key>
+            <PropertyRef Name="bookID" />
+          </Key>
+          <Property Name="bookID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="bkISBN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="bookSite" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="bookState" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="BK" Relationship="Self.FK_Book_BK" FromRole="Book" ToRole="BK" />
+        </EntityType>
+        <EntityType Name="Librarian">
+          <Key>
+            <PropertyRef Name="libName" />
+          </Key>
+          <Property Name="libName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="libPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Reader">
+          <Key>
+            <PropertyRef Name="readerID" />
+          </Key>
+          <Property Name="readerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="readerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="readerTel" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Record" Relationship="Self.FK_Record_Reader" FromRole="Reader" ToRole="Record" />
+          <NavigationProperty Name="Reserve" Relationship="Self.FK_Reserve_Reader" FromRole="Reader" ToRole="Reserve" />
+        </EntityType>
+        <EntityType Name="Record">
+          <Key>
+            <PropertyRef Name="readerID" />
+            <PropertyRef Name="bookID" />
+            <PropertyRef Name="lendTime" />
+          </Key>
+          <Property Name="readerID" Type="Int32" Nullable="false" />
+          <Property Name="bookID" Type="Int32" Nullable="false" />
+          <Property Name="lendTime" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="wellTime" Type="DateTime" Precision="0" />
+          <Property Name="returnTime" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Reader" Relationship="Self.FK_Record_Reader" FromRole="Record" ToRole="Reader" />
+        </EntityType>
+        <EntityType Name="Reserve">
+          <Key>
+            <PropertyRef Name="readerID" />
+            <PropertyRef Name="bkISBN" />
+            <PropertyRef Name="reserveTime" />
+          </Key>
+          <Property Name="readerID" Type="Int32" Nullable="false" />
+          <Property Name="bkISBN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="reserveTime" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="reserveLine" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="BK" Relationship="Self.FK_Reserve_BK" FromRole="Reserve" ToRole="BK" />
+          <NavigationProperty Name="Reader" Relationship="Self.FK_Reserve_Reader" FromRole="Reserve" ToRole="Reader" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="InShelfBook">
+          <Key>
+            <PropertyRef Name="bookID" />
+            <PropertyRef Name="bkISBN" />
+            <PropertyRef Name="bkName" />
+          </Key>
+          <Property Name="bookID" Type="Int32" Nullable="false" />
+          <Property Name="bkISBN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="bkName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LendBook">
+          <Key>
+            <PropertyRef Name="bkName" />
+            <PropertyRef Name="bkPublisher" />
+            <PropertyRef Name="bkSort" />
+            <PropertyRef Name="bkISBN" />
+            <PropertyRef Name="bookID" />
+            <PropertyRef Name="bookState" />
+          </Key>
+          <Property Name="bkName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="bkAuthor" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="bkPublisher" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="bkSort" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="bkISBN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="bookID" Type="Int32" Nullable="false" />
+          <Property Name="bookState" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_BK_BK">
+          <End Role="BK" Type="Self.BK" Multiplicity="1" />
+          <End Role="BK1" Type="Self.BK" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="BK">
+              <PropertyRef Name="bkISBN" />
+            </Principal>
+            <Dependent Role="BK1">
+              <PropertyRef Name="bkISBN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Book_BK">
+          <End Role="BK" Type="Self.BK" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Book" Type="Self.Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BK">
+              <PropertyRef Name="bkISBN" />
+            </Principal>
+            <Dependent Role="Book">
+              <PropertyRef Name="bkISBN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reserve_BK">
+          <End Role="BK" Type="Self.BK" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Reserve" Type="Self.Reserve" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BK">
+              <PropertyRef Name="bkISBN" />
+            </Principal>
+            <Dependent Role="Reserve">
+              <PropertyRef Name="bkISBN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Record_Reader">
+          <End Role="Reader" Type="Self.Reader" Multiplicity="1" />
+          <End Role="Record" Type="Self.Record" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reader">
+              <PropertyRef Name="readerID" />
+            </Principal>
+            <Dependent Role="Record">
+              <PropertyRef Name="readerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reserve_Reader">
+          <End Role="Reader" Type="Self.Reader" Multiplicity="1" />
+          <End Role="Reserve" Type="Self.Reserve" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reader">
+              <PropertyRef Name="readerID" />
+            </Principal>
+            <Dependent Role="Reserve">
+              <PropertyRef Name="readerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PMLibEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BK" EntityType="Self.BK" />
+          <EntitySet Name="Book" EntityType="Self.Book" />
+          <EntitySet Name="Librarian" EntityType="Self.Librarian" />
+          <EntitySet Name="Reader" EntityType="Self.Reader" />
+          <EntitySet Name="Record" EntityType="Self.Record" />
+          <EntitySet Name="Reserve" EntityType="Self.Reserve" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="InShelfBook" EntityType="Self.InShelfBook" />
+          <EntitySet Name="LendBook" EntityType="Self.LendBook" />
+          <AssociationSet Name="FK_BK_BK" Association="Self.FK_BK_BK">
+            <End Role="BK" EntitySet="BK" />
+            <End Role="BK1" EntitySet="BK" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Book_BK" Association="Self.FK_Book_BK">
+            <End Role="BK" EntitySet="BK" />
+            <End Role="Book" EntitySet="Book" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reserve_BK" Association="Self.FK_Reserve_BK">
+            <End Role="BK" EntitySet="BK" />
+            <End Role="Reserve" EntitySet="Reserve" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Record_Reader" Association="Self.FK_Record_Reader">
+            <End Role="Reader" EntitySet="Reader" />
+            <End Role="Record" EntitySet="Record" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reserve_Reader" Association="Self.FK_Reserve_Reader">
+            <End Role="Reader" EntitySet="Reader" />
+            <End Role="Reserve" EntitySet="Reserve" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PMLibModelStoreContainer" CdmEntityContainer="PMLibEntities">
+          <EntitySetMapping Name="BK">
+            <EntityTypeMapping TypeName="PMLibModel.BK">
+              <MappingFragment StoreEntitySet="BK">
+                <ScalarProperty Name="bkISBN" ColumnName="bkISBN" />
+                <ScalarProperty Name="bkName" ColumnName="bkName" />
+                <ScalarProperty Name="bkAuthor" ColumnName="bkAuthor" />
+                <ScalarProperty Name="bkPublisher" ColumnName="bkPublisher" />
+                <ScalarProperty Name="bkPubTime" ColumnName="bkPubTime" />
+                <ScalarProperty Name="bkCount" ColumnName="bkCount" />
+                <ScalarProperty Name="bkSort" ColumnName="bkSort" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Book">
+            <EntityTypeMapping TypeName="PMLibModel.Book">
+              <MappingFragment StoreEntitySet="Book">
+                <ScalarProperty Name="bookID" ColumnName="bookID" />
+                <ScalarProperty Name="bkISBN" ColumnName="bkISBN" />
+                <ScalarProperty Name="bookSite" ColumnName="bookSite" />
+                <ScalarProperty Name="bookState" ColumnName="bookState" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Librarian">
+            <EntityTypeMapping TypeName="PMLibModel.Librarian">
+              <MappingFragment StoreEntitySet="Librarian">
+                <ScalarProperty Name="libName" ColumnName="libName" />
+                <ScalarProperty Name="libPassword" ColumnName="libPassword" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reader">
+            <EntityTypeMapping TypeName="PMLibModel.Reader">
+              <MappingFragment StoreEntitySet="Reader">
+                <ScalarProperty Name="readerID" ColumnName="readerID" />
+                <ScalarProperty Name="readerName" ColumnName="readerName" />
+                <ScalarProperty Name="readerTel" ColumnName="readerTel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Record">
+            <EntityTypeMapping TypeName="PMLibModel.Record">
+              <MappingFragment StoreEntitySet="Record">
+                <ScalarProperty Name="readerID" ColumnName="readerID" />
+                <ScalarProperty Name="bookID" ColumnName="bookID" />
+                <ScalarProperty Name="lendTime" ColumnName="lendTime" />
+                <ScalarProperty Name="wellTime" ColumnName="wellTime" />
+                <ScalarProperty Name="returnTime" ColumnName="returnTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reserve">
+            <EntityTypeMapping TypeName="PMLibModel.Reserve">
+              <MappingFragment StoreEntitySet="Reserve">
+                <ScalarProperty Name="readerID" ColumnName="readerID" />
+                <ScalarProperty Name="bkISBN" ColumnName="bkISBN" />
+                <ScalarProperty Name="reserveTime" ColumnName="reserveTime" />
+                <ScalarProperty Name="reserveLine" ColumnName="reserveLine" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="PMLibModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InShelfBook">
+            <EntityTypeMapping TypeName="PMLibModel.InShelfBook">
+              <MappingFragment StoreEntitySet="InShelfBook">
+                <ScalarProperty Name="bookID" ColumnName="bookID" />
+                <ScalarProperty Name="bkISBN" ColumnName="bkISBN" />
+                <ScalarProperty Name="bkName" ColumnName="bkName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LendBook">
+            <EntityTypeMapping TypeName="PMLibModel.LendBook">
+              <MappingFragment StoreEntitySet="LendBook">
+                <ScalarProperty Name="bkName" ColumnName="bkName" />
+                <ScalarProperty Name="bkAuthor" ColumnName="bkAuthor" />
+                <ScalarProperty Name="bkPublisher" ColumnName="bkPublisher" />
+                <ScalarProperty Name="bkSort" ColumnName="bkSort" />
+                <ScalarProperty Name="bkISBN" ColumnName="bkISBN" />
+                <ScalarProperty Name="bookID" ColumnName="bookID" />
+                <ScalarProperty Name="bookState" ColumnName="bookState" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

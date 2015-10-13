@@ -1,0 +1,69 @@
+﻿@model PMLib.Models.Record
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>借书</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>借书记录</legend>
+
+        <div class="editor-label">
+            读者ID：
+        </div>
+        <div class="editor-field">
+            @*@Html.DropDownList("readerID", String.Empty)*@
+            @Html.EditorFor(model => model.readerID)
+            @Html.ValidationMessageFor(model => model.readerID)
+        </div>
+
+        <div class="editor-label">
+            图书ID：
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.bookID)
+            @Html.ValidationMessageFor(model => model.bookID)
+        </div>
+
+        <div class="editor-label">
+            借书时间
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.lendTime)
+            @Html.ValidationMessageFor(model => model.lendTime)
+        </div>
+
+        <div class="editor-label">
+           应还时间
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.wellTime)
+            @Html.ValidationMessageFor(model => model.wellTime)
+        </div>
+
+        <div class="editor-label">
+            还书时间
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.returnTime)
+            @Html.ValidationMessageFor(model => model.returnTime)
+        </div>
+
+        <p>
+            <input type="submit" value="借阅" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("返回列表", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

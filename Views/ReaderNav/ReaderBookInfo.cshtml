@@ -1,0 +1,78 @@
+﻿ 
+@model IEnumerable<PMLib.BLL.BookInfo>
+@{
+    ViewBag.Title = "ReaderBookInfo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>图书信息</h1>
+<form action="~/res/Create" method="get"  ><button type="submit" class="btn btn-primary float-right">我要预约</button></form>
+<form action="~/ReaderNav/SearchString" method="get">
+    <input type="text" class="" name="searchString" placeholder="按书名搜索 " />
+    <button type="submit" class="btn btn-info"  >搜索</button>  
+</form>
+<form action="~/home/xmlib" method="get"><button type="submit" class="btn btn-primary float-right">访问西邮图书馆</button></form>
+<form action="~/ReaderNav/SearchSort" method="get">
+    <input type="text" class="" name="searchSort" placeholder="按分类搜索 " />
+    <button type="submit" class="btn btn-info">搜索</button> 
+</form>
+<form action="~/ReaderNav" method="get">
+    <button class="btn btn-primary" type="submit">返回</button>
+</form>
+<table class="table table-bordered table-striped table-hover ">
+    <tr>
+        <th>
+           书名
+        </th>
+        <th>
+           ISBN
+        </th>
+        <th>
+            作者
+        </th>
+        <th>
+            出版社
+        </th>
+        <th>
+            可借数量
+        </th>
+        <th>
+            分类
+        </th>
+        <th>
+           位置
+        </th>
+        
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.bkName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.bkISBN)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.bkAuthor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.bkPublisher)
+            </td>
+           
+            <td>
+                @Html.DisplayFor(modelItem => item.inShelf)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.bkSort)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.bookSite)
+            </td>
+
+        </tr>
+    }
+
+</table>

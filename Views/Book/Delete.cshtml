@@ -1,0 +1,45 @@
+﻿@model PMLib.Models.Book
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>下架图书</h2>
+
+<h3>确认下架这本书？</h3>
+<fieldset>
+    <legend>Book</legend>
+    <div class="display-label">
+        ID：
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.bookID)
+    </div>
+    <div class="display-label">
+        书名：
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.BK.bkName)
+    </div>
+
+    <div class="display-label">
+         位置：
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.bookSite)
+    </div>
+
+    <div class="display-label">
+         状态：
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.bookState)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <p>
+        <input type="submit" value="下架" /> |
+        @Html.ActionLink("返回列表", "Index")
+    </p>
+}

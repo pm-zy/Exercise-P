@@ -1,0 +1,57 @@
+﻿@model IEnumerable<PMLib.Models.LendBook>
+
+@{
+    ViewBag.Title = "已借出图书";
+}
+
+<h2>已借出图书</h2>
+
+@*<p>
+    @Html.ActionLink("Create New", "Create")
+</p>*@
+<form action="~/AdminNav" method="post"><button type="submit" class="btn btn-primary float-right">返回导航页面</button></form>
+<table class="table table-bordered table-striped table-hover">
+    <tr>
+        <th>
+            书名
+        </th>
+        <th>
+            作者
+        </th>
+        <th>
+            出版社
+        </th>
+        <th>
+            分类
+        </th>
+        <th>
+            ISBN
+        </th>
+ 
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.bkName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.bkAuthor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.bkPublisher)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.bkSort)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.bkISBN)
+            </td>
+
+
+          
+        </tr>
+    }
+
+</table>

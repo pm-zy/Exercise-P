@@ -1,0 +1,50 @@
+﻿@model PMLib.Models.Record
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>详情</h2>
+
+<fieldset>
+    <legend>借还记录</legend>
+
+    <div class="display-label">
+         读者姓名
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Reader.readerName)
+    </div>
+
+    <div class="display-label">
+         图书ID
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.bookID)
+    </div>
+
+    <div class="display-label">
+         借书时间
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.lendTime)
+    </div>
+
+    <div class="display-label">
+         应还时间
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.wellTime)
+    </div>
+
+    <div class="display-label">
+        还书时间
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.returnTime)
+    </div>
+</fieldset>
+<p>
+   
+    @Html.ActionLink("返回列表t", "Index")
+</p>

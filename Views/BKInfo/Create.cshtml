@@ -1,0 +1,84 @@
+﻿@model PMLib.Models.BK
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>添加新书</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @*<form action="~/AdminNav" method="post"><button type="submit" class="btn btn-primary float-right">返回导航页面</button></form>*@
+    <fieldset>
+        <legend>BK</legend>
+
+        <div class="editor-label">
+            ISBN
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.bkISBN)
+            @Html.ValidationMessageFor(model => model.bkISBN)
+        </div>
+
+        <div class="editor-label">
+            书名
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.bkName)
+            @Html.ValidationMessageFor(model => model.bkName)
+        </div>
+
+        <div class="editor-label">
+            作者
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.bkAuthor)
+            @Html.ValidationMessageFor(model => model.bkAuthor)
+        </div>
+
+        <div class="editor-label">
+            出版社
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.bkPublisher)
+            @Html.ValidationMessageFor(model => model.bkPublisher)
+        </div>
+
+        <div class="editor-label">
+            出版时间
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.bkPubTime)
+            @Html.ValidationMessageFor(model => model.bkPubTime)
+        </div>
+
+        <div class="editor-label">
+            数量
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.bkCount)
+            @Html.ValidationMessageFor(model => model.bkCount)
+        </div>
+
+        <div class="editor-label">
+           分类
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.bkSort)
+            @Html.ValidationMessageFor(model => model.bkSort)
+        </div>
+
+        <p>
+            <input type="submit" value="添加" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("返回列表", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

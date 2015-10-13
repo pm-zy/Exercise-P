@@ -1,0 +1,18 @@
+﻿@if (Session["Name"]!=null) {
+    <text>
+        你好，@Session["Name"] !
+        @*@using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" })) {
+            @Html.AntiForgeryToken()*@
+            @*<form  action="~/Account/LogOff" method="post"><button type="submit" class="btn ">注销</button></form>*@ 
+@using(Html.BeginForm("LogOff","Account",FormMethod.Post,new{id="logoutForm"})){
+    @Html.AntiForgeryToken()
+    <a href="javascript:document.getElementById('logoutForm').submit()">切换账户</a>
+}
+        
+    </text>
+} else {
+    <ul>
+        
+        <li>@Html.ActionLink("登录", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+}

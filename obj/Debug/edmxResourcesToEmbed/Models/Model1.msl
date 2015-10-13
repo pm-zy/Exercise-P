@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="PMLibModelStoreContainer" CdmEntityContainer="PMLibEntities">
+    <EntitySetMapping Name="BK">
+      <EntityTypeMapping TypeName="PMLibModel.BK">
+        <MappingFragment StoreEntitySet="BK">
+          <ScalarProperty Name="bkISBN" ColumnName="bkISBN" />
+          <ScalarProperty Name="bkName" ColumnName="bkName" />
+          <ScalarProperty Name="bkAuthor" ColumnName="bkAuthor" />
+          <ScalarProperty Name="bkPublisher" ColumnName="bkPublisher" />
+          <ScalarProperty Name="bkPubTime" ColumnName="bkPubTime" />
+          <ScalarProperty Name="bkCount" ColumnName="bkCount" />
+          <ScalarProperty Name="bkSort" ColumnName="bkSort" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Book">
+      <EntityTypeMapping TypeName="PMLibModel.Book">
+        <MappingFragment StoreEntitySet="Book">
+          <ScalarProperty Name="bookID" ColumnName="bookID" />
+          <ScalarProperty Name="bkISBN" ColumnName="bkISBN" />
+          <ScalarProperty Name="bookSite" ColumnName="bookSite" />
+          <ScalarProperty Name="bookState" ColumnName="bookState" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Librarian">
+      <EntityTypeMapping TypeName="PMLibModel.Librarian">
+        <MappingFragment StoreEntitySet="Librarian">
+          <ScalarProperty Name="libName" ColumnName="libName" />
+          <ScalarProperty Name="libPassword" ColumnName="libPassword" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Reader">
+      <EntityTypeMapping TypeName="PMLibModel.Reader">
+        <MappingFragment StoreEntitySet="Reader">
+          <ScalarProperty Name="readerID" ColumnName="readerID" />
+          <ScalarProperty Name="readerName" ColumnName="readerName" />
+          <ScalarProperty Name="readerTel" ColumnName="readerTel" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Record">
+      <EntityTypeMapping TypeName="PMLibModel.Record">
+        <MappingFragment StoreEntitySet="Record">
+          <ScalarProperty Name="readerID" ColumnName="readerID" />
+          <ScalarProperty Name="bookID" ColumnName="bookID" />
+          <ScalarProperty Name="lendTime" ColumnName="lendTime" />
+          <ScalarProperty Name="wellTime" ColumnName="wellTime" />
+          <ScalarProperty Name="returnTime" ColumnName="returnTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Reserve">
+      <EntityTypeMapping TypeName="PMLibModel.Reserve">
+        <MappingFragment StoreEntitySet="Reserve">
+          <ScalarProperty Name="readerID" ColumnName="readerID" />
+          <ScalarProperty Name="bkISBN" ColumnName="bkISBN" />
+          <ScalarProperty Name="reserveTime" ColumnName="reserveTime" />
+          <ScalarProperty Name="reserveLine" ColumnName="reserveLine" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="PMLibModel.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="InShelfBook">
+      <EntityTypeMapping TypeName="PMLibModel.InShelfBook">
+        <MappingFragment StoreEntitySet="InShelfBook">
+          <ScalarProperty Name="bookID" ColumnName="bookID" />
+          <ScalarProperty Name="bkISBN" ColumnName="bkISBN" />
+          <ScalarProperty Name="bkName" ColumnName="bkName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LendBook">
+      <EntityTypeMapping TypeName="PMLibModel.LendBook">
+        <MappingFragment StoreEntitySet="LendBook">
+          <ScalarProperty Name="bkName" ColumnName="bkName" />
+          <ScalarProperty Name="bkAuthor" ColumnName="bkAuthor" />
+          <ScalarProperty Name="bkPublisher" ColumnName="bkPublisher" />
+          <ScalarProperty Name="bkSort" ColumnName="bkSort" />
+          <ScalarProperty Name="bkISBN" ColumnName="bkISBN" />
+          <ScalarProperty Name="bookID" ColumnName="bookID" />
+          <ScalarProperty Name="bookState" ColumnName="bookState" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
